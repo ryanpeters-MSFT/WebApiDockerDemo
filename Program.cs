@@ -1,7 +1,5 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -18,13 +16,39 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+var clients = new[]
+{
+    new Client
+    {
+        Id = 1,
+        Name = "Ryan",
+        Title = "CSA"
+    },
+    new Client
+    {
+        Id = 2,
+        Name = "Dan",
+        Title = "Specialist"
+    }
+};
+
 app.MapGet("/", () =>
 {
     var welcomeMessage = configuration["WELCOME_MSG"];
 
     return Results.Ok(welcomeMessage);
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+});
+
+app.MapGet("/clients", () =>
+{
+    return Results.Ok(clients);
+});
+
+app.MapGet("/clients/{id}", (int id) =>
+{
+    var client = clients.FirstOrDefault(c => c.Id == id);
+
+    return Results.Ok(client);
+});
 
 app.Run();
