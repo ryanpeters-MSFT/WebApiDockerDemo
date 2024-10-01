@@ -28,7 +28,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(solution)'
-    arguments: '-c $(buildConfiguration) -p:Version=$(version)'
+    arguments: '-c $(buildConfiguration)'
 
 - task: PowerShell@2
   inputs:
