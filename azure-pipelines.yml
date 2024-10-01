@@ -27,4 +27,4 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Get-ChildItem -Path "$(Build.SourcesDirectory)" -Recurse
+      Get-ChildItem -Path "$(Build.SourcesDirectory)/obj" -Recurse
